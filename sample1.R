@@ -2,7 +2,7 @@ library(Seurat)
 library(dplyr)
 library(magrittr)
 
-# 载入数据，为cellranger aggr的输出
+# 载入数据，为cellranger count的输出
 list.files("./filtered_feature_bc_matrix/")
 raw_data <- Read10X(data.dir = "./filtered_feature_bc_matrix/")
 # 为6498个细胞中21027个基因的count值矩阵
@@ -20,7 +20,7 @@ sc.object <- CreateSeuratObject(counts = raw_data, project = "macaca_brain", min
 FeatureScatter(object = sc.object, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
 sc.object[["percent.mt"]] <- PercentageFeatureSet(sc.object, pattern = "^MT-")
 VlnPlot(sc.object, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
-#根据feature图直观判断选择feature大于375小于5000的细胞
+#根据feature图删除离群值,选择feature大于375小于5000的细胞
 sc.object <- subset(sc.object, subset = nFeature_RNA > 375 & nFeature_RNA < 5000 & percent.mt < 5)
 #dim(sc.object)
 #[1] 15282  6479
@@ -55,12 +55,12 @@ DimHeatmap(sc.object, dims = 1:15, cells = 500, balanced = TRUE)
 #nu.object <- JackStraw(vt.object, num.replicate = 100)
 #nu.object <- ScoreJackStraw(nu.object, dims = 1:20)
 #JackStrawPlot(nu.object, dims = 1:15)
-#这需要很长的时间，可以用碎石图代替
+#这需要很长的时间，可以用ElowPlot代替
 ElbowPlot(sc.object)
 #用三个方法选择PCs
 #1.观察PCs热图找到异质性的来源，这个热图怎么看
 #2.用随机的对照数据集统计，耗时而且无法确定合适的cutoff
-#3.碎石图直接选择
+#3.ElowPlot直接选择PC的拐点
 #选择不同的PCs会对下游的结果产生巨大的影响
 
 
