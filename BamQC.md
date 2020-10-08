@@ -18,3 +18,12 @@ geneBody_coverage.py -r /data/neurosys-svr2/zhouxueya/refer/mm10_Gencode_VM18.be
 
 ### 结果分析
 + 覆盖度曲线呈现两头高中间低的趋势
+
+## bam文件coverage的统计
+## coverage的两个层面
++ 覆盖度
++ 深度
+
+## 统计Intronic reads, exonic reads, intergenic reads, ribosomal RNA reads的coverage
++ 使用qualimap对bam文件进行质控  
+`qualimap rnaseq -bam LCM-FF-1_trimed.bam -gtf /data/neurosys-svr2/zhouxueya/refer/gencode.vM25.annotation.gtf -pe -s --java-mem-size=8G`
