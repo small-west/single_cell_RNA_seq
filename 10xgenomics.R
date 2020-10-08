@@ -72,7 +72,7 @@ ElbowPlot(sc.object)
 #首先基于PCA空间中的欧式距离构建一个KNN图
 #然后细化他们的边缘权重（相似性
 #运用了一个模块优化方法Louvain algorithm (default) or SLM
-#选了10个PCs
+#选了15个PCs
 sc.object <- FindNeighbors(sc.object, dims = 1:15)
 sc.object <- FindClusters(sc.object, resolution = 0.5)
 #可以看一下前5个细胞属于哪一类
