@@ -8,7 +8,8 @@
   `fastqc -o fasqc_res/ /picb/neurosys/LJ/BigData/GLHu/20191218/*.fastq.gz`
   
 ### cell ranger处理数据
-+ cell ranger的安装
++ cell ranger的安装  
+[cellranger官网](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger)
 + 从download页面填写信息获取链接
 
 + cell ranger参考序列的准备
