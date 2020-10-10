@@ -35,12 +35,18 @@
 + cell ranger count
   注意修改fastq文件的名字
   参考官网修改  
+  ```
+  ls /data/neurosys-svr2/GH/20191218/
+  19X118-2_S1_L005_R1_001.fastq.gz  19X118-2_S1_L005_R1_003.fastq.gz  19X118-2_S1_L005_R2_001.fastq.gz  19X118-2_S1_L005_R2_003.fastq.gz  md5_GLHu.txt
+  19X118-2_S1_L005_R1_002.fastq.gz  19X118-2_S1_L005_R1_004.fastq.gz  19X118-2_S1_L005_R2_002.fastq.gz  19X118-2_S1_L005_R2_004.fastq.gz
+  ```
+ 
   注：一个样本的fastq文件放在同一个目录下
   ```
-  refer_path=/data/neurosys-svr2/zhouxueya/macaca/cell_ranger_refer
-  fastq_path=/data/neurosys-svr2/yanyuyao/20191218/count
-  cellranger count --id=$1 \
+  refer_path=/data/neurosys-svr2/zhouxueya/macaca/cell_ranger_refer/Macaca_fascicularis_genome/
+  fastq_path=/data/neurosys-svr2/GH/20191218/
+  cellranger count --id=19X118 \
                  --transcriptome=$refer_path \
                  --fastqs=$fastq_path \
-                 --sample=$1
+                 --sample=19X118-2
   ```
