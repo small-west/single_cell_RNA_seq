@@ -111,3 +111,44 @@ write.table(top10, file = "./top10marker", sep = "\t")
 
 #指定细胞类型去识别cluster
 #需要凭借背景知识判断marker之后属于哪类细胞
+#常用的注释类型包有singleR，数据库有CellMarker
+#markers根据已知文献查询得到脑组织常见细胞类型的makers
+markers <- c("GAD1","MAG","A2M","SLC1A2","GAD2","SATB2","TAC1","PCDH8", "DRD2","ADORA2A","PENK","PCP4","NECAB2","LMO7","CALB1","PDGFRA","CSPG4","GJA1","MOBP","MOG","RELN","AIF1","CX3CR1","PTPRC","HLA−DRA","A2M")
+markers_exist <- intersect(x=sc.object.markers$gene, y = markers)
+VlnPlot(sc.object, features = markers_exist, pt.size = 0)
+#为了方便改名，另用一个final.object记载改名后的结果
+final.object <- RenameIdents(object = sc.object, 
+                                  "0" = "undefined",
+                                  "1" = "excitatory neuron",
+                                  "2" = "Purkinje cell_1",
+                                  "3" = "undefined",
+                                  "4" = "Purkinje cell_2",
+                                  "5" = "inhibitory neurons_1",
+                                  "6" = "Astrocyte_1",
+                                  "7" = "Oligodendrocyte_3",
+                                  "8" = "inhibitory neurons_2",
+                                  "9" = "Monocyte",
+                                  "10" = "Astrocyte_2",
+                                  "11" = "endothelial vascular cells",
+                                  "12" = "Oligodendrocyte_4",
+                                  "13" = "Oligodendrocyte progenitor cell")
+
+DimPlot(final.object, reduction = "umap", label = TRUE, label.size = 3, repel = TRUE)
+# 改成缩写，或者在注释出现问题时方便修改
+final.object <- RenameIdents(object = sc.object, 
+                          "0" = "undefined",
+                          "1" = "excitatory neuron",
+                          "2" = "Purkinje cell_1",
+                          "3" = "undefined",
+                          "4" = "Purkinje cell_2",
+                          "5" = "inhibitory neurons_1",
+                          "6" = "Astro_1",
+                          "7" = "OLIG_1",
+                          "8" = "inhibitory neurons_2",
+                          "9" = "Monocyte",
+                          "10" = "Astro_2",
+                          "11" = "endothelial vascular cells",
+                          "12" = "OLIG_2",
+                          "13" = "OPC")
+DimPlot(final.object, reduction = "umap", label = TRUE, label.size = 4, repel = TRUE, pt.size = 1)
+
